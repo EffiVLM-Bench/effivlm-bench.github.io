@@ -182,7 +182,7 @@
 
   <section class="section" id="introduction-overview" style="padding-top:1.5rem;">
     <div class="container" style="max-width: 80%; margin: 0 auto;">
-      <h2 class="title is-3" style="text-align:center; margin-bottom:1rem;">Introduction</h2>
+      <h2 class="title is-3" style="text-align:left; margin-bottom:1rem;">Introduction</h2>
       <div class="content has-text-justified" style="font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
         <p>
           Large vision-language models (LVLMs) have rapidly advanced, transforming multimodal AI and showing great potential for real-world applications.
@@ -202,7 +202,7 @@
   </section>
 
   <section class="section" id="key-features" style="padding-top:1.5rem;">
-    <div class="container" style="max-width: 90%; margin: 0 auto;"> 
+    <div class="container" style="max-width: 80%; margin: 0 auto;"> 
         <h2 class="title is-3" style="text-align:center; margin-bottom:1.5rem;">Key Features of EFFIVLM-BENCH</h2>
         <div class="columns is-desktop is-multiline"> 
             <div class="column is-one-third-desktop">
@@ -220,8 +220,8 @@
                         <li><strong>Leading LVLMs:</strong> Evaluation across frontier models like LLaVA-OneVision(OV)-7B, Qwen2-VL-7B, and InternVL2.5-38B.</li>
                         <li><strong>Mainstream Acceleration Techniques:</strong> Systematic evaluation of:
                             <ul>
-                                <li><em>Token Compression:</em> Visual Token Pruning (e.g., FastV, VisionZip, PruMerge+) and KV Cache Compression (e.g., StreamingLLM, H2O, VL-Cache).</li>
-                                <li><em>Parameter Compression:</em> Weight Pruning (e.g., Wanda, SparseGPT) and Quantization (e.g., AWQ, GPTQ).</li>
+                                <li><em>✂️ Token Compression:</em> Visual Token Pruning (e.g., FastV, VisionZip, PruMerge+) and KV Cache Compression (e.g., StreamingLLM, H2O, VL-Cache).</li>
+                                <li><em>🗃️ Parameter Compression:</em> Weight Pruning (e.g., Wanda, SparseGPT) and Quantization (e.g., AWQ, GPTQ).</li>
                             </ul>
                         </li>
                         <li><strong>Diverse Benchmarks:</strong> Evaluation spans 17 widely-used benchmarks.</li>
@@ -240,12 +240,12 @@
                         </span>
                     </h4>
                     <p>A unified framework employing comprehensive metrics to assess methods on:</p>
-                    <ul>
-                        <li><strong>Overall Performance (OP):</strong> Measures compressed model's performance relative to the original.</li>
-                        <li><strong>Generalization (OG):</strong> Evaluates consistency across models and benchmarks (lower is better).</li>
-                        <li><strong>Loyalty (OL):</strong> Assesses preservation of the original model's predictions.</li>
-                        <li><strong>Efficiency (OE):</strong> Reflects real-world latency via actual inference time speedup.</li>
-                    </ul>
+                        <ul style="list-style-type: none;">
+                          <li style="margin-bottom: 16px;"><strong>Overall Performance (OP):</strong> Measures compressed model's performance relative to the original.</li>
+                          <li style="margin-bottom: 16px;"><strong>Generalization (OG):</strong> Evaluates consistency across models and benchmarks (lower is better).</li>
+                          <li style="margin-bottom: 16px;"><strong>Loyalty (OL):</strong> Assesses preservation of the original model's predictions.</li>
+                          <li style="margin-bottom: 16px;"><strong>Efficiency (OE):</strong> Reflects real-world latency via actual inference time speedup.</li>
+                        </ul>
                 </div>
             </div>
 
@@ -264,10 +264,10 @@
                         <li><strong>Pareto-Optimal Trade-offs:</strong> Balancing model performance and inference efficiency.</li>
                         <li><strong>Compression Mechanisms Analysis:</strong>
                             <ul>
-                                <li>Layer-adaptive vs. static budget allocation in KV cache.</li>
-                                <li>Impact of head-adaptive token selection in KV cache.</li>
-                                <li>Significance of "attention sink" tokens.</li>
-                                <li>Optimal strategies for merging evicted tokens.</li>
+                                <li>🎚️ Layer-adaptive vs. static budget allocation in KV cache.</li>
+                                <li>🎯 Impact of head-adaptive token selection in KV cache.</li>
+                                <li>⚓ Significance of "attention sink" tokens.</li>
+                                <li>🧩 Optimal strategies for merging evicted tokens.</li>
                             </ul>
                         </li>
                         <li><strong>Open Source:</strong> Provides code and recipes to foster future research.</li>
@@ -280,8 +280,8 @@
   </section>
 
 <section class="section" id="results" style="padding-top:1.5rem;">
-    <div class="container" style="max-width: 90%">
-      <h2 class="title is-3" style="text-align:center; margin-bottom:2rem;">Benchmark Results and Key Findings</h2>
+    <div class="container" style="max-width: 80%">
+      <h2 class="title is-3" style="text-align:left; margin-bottom:2rem;">Benchmark Results and Key Findings</h2>
         <ul class="nav nav-tabs" id="resultsTab" role="tablist">
           <li class="nav-item" role="presentation">
               <button class="nav-link active" id="token-compression-tab" data-bs-toggle="tab"
@@ -300,14 +300,14 @@
             <p>We evaluate token compression effectiveness by examining two mainstream approaches: (1) token pruning (e.g., FastV, VisionZip, PruMerge+) and (2) KV cache compression (e.g., StreamingLLM, H2O, SnapKV, PyramidKV, LOOK-M, VL-Cache).</p>
             
             <figure class="has-text-centered" style="margin-bottom: 2rem;">
-                <img src="website/img/main_kvcache.svg" alt="Performance of KV Cache Compression Methods" style="max-width: 100%; height: auto; border: 1px solid #ddd;"/>
+                <img src="website/img/main_kvcache.svg" alt="Performance of KV Cache Compression Methods" style="max-width: 80%; height: auto; border: 1px solid #ddd;"/>
                 <figcaption>Performance comparison of KV cache compression methods.</figcaption>
             </figure>
 
             <div class="key-observation">
                 <p><span class="observation-title">Observation 1:</span> Token compression performance is task-dependent and shows significant sensitivity to benchmark and model. Most methods are stable at higher budgets but degrade sharply at very low budgets (e.g., 1%), especially on tasks requiring fine-grained visual detail or long outputs. For token pruning at a 1% budget, methods pruning within the visual encoder (e.g., VisionZip, PruMerge+) outperform those pruning in the LLM backbone (e.g., FastV).</p>
                 <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
-                    <img src="website/img/visual_token_prune.png" alt="Visual Token Pruning Results" style="max-width: 100%; border: 1px solid #ddd;"/>
+                    <img src="website/img/visual_token_prune.png" alt="Visual Token Pruning Results" style="max-width: 80%; border: 1px solid #ddd;"/>
   
                 </div>
             </div>
@@ -324,11 +324,12 @@
             <div class="key-observation">
                 <p><span class="observation-title">Observation 4:</span> Consistent performance trends of token compression methods are observed across single-image, multi-image, and video tasks.</p>
             </div>
-          </div>
             <figure class="has-text-centered" style="margin-bottom: 2rem;">
                 <img src="website/img/pareto.png" alt="Trade-off Analysis for Token Compression" style="max-width: 80%; height: auto; border: 1px solid #ddd;"/>
                 
             </figure>
+          </div>
+            
 
 
           <div class="tab-pane fade" id="parameter-compression-content" role="tabpanel" aria-labelledby="parameter-compression-tab">
@@ -337,7 +338,7 @@
             <div class="key-observation">
                 <p><span class="observation-title">Observation 5:</span> Parameter compression generally preserves performance more effectively than token compression, even at higher compression ratios (e.g., 50% sparsity). Quantization methods like AWQ tend to preserve higher performance compared to pruning. Importantly, token and parameter compression are orthogonal and can be effectively combined.</p>
                  <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
-                    <img src="website/img/parem_compress.png" alt="Parameter Compression Results" style="max-width: 100%; border: 1px solid #ddd;"/>
+                    <img src="website/img/parem_compress.png" alt="Parameter Compression Results" style="max-width: 80%; border: 1px solid #ddd;"/>
                 </div>
             </div>
           </div>
@@ -347,7 +348,7 @@
 
   <section class="section" id="discussion" style="padding-top:3.5rem;">
       <div class="container" style="max-width: 80%; font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
-        <h2 class="title is-3" style="text-align:center; margin-bottom:2rem;">Key Insights and Discussion</h2>
+        <h2 class="title is-3" style="text-align:left; margin-bottom:2rem;">Key Insights and Discussion</h2>
         
         <div class="content">
             <h4 class="title is-5 method-category">Revisiting Layer-Adaptive Sparsity in KV Cache Compression</h4>
@@ -371,8 +372,8 @@
   </section>
 
   <section class="section" id="BibTeX" style="padding-top:1.5rem;">
-    <div class="container is-max-desktop content" style="max-width: 95%; margin: 0 auto;">
-      <h2 class="title is-3" style="text-align:center;">BibTeX</h2>
+    <div class="container is-max-desktop content" style="max-width: 80%; margin: 0 auto;">
+      <h2 class="title is-3" style="text-align:left;">BibTeX</h2>
       <pre style="background-color: #f5f5f5; padding: 1em; border-radius: 4px; overflow-x: auto;"><code>
         @misc{wang2025effivlmbenchcomprehensivebenchmarkevaluating,
           title={EffiVLM-BENCH: A Comprehensive Benchmark for Evaluating Training-Free Acceleration in Large Vision-Language Models}, 
@@ -389,7 +390,7 @@
 
   <section class="section" id="acknowledgements" style="padding-top:1.5rem;">
       <div class="container is-max-desktop content" style="max-width: 80%; margin: 0 auto;">
-          <h2 class="title is-3" style="text-align:center;">Acknowledgements</h2>
+          <h2 class="title is-3" style="text-align:left;">Acknowledgements</h2>
           <p class="has-text-justified">
               Ming Liu is the corresponding author. The work is supported by the National Key Research and Development Project (2022YFF0903301), the National Science Foundation of China (U22B2059,62276083). Besides, we express our gratitude to DuXiaoman Technology for supporting the work.
           </p>
