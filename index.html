@@ -48,7 +48,7 @@
     </script>
     <script type="text/javascript">
         MathJax.Hub.Config({
-            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+            tex2jax: {inlineMath: [['<span class="math-inline">','</span>'], ['\\(','\\)']]}
         });
     </script>
 
@@ -160,7 +160,7 @@
     </div>
   </section>
 
-  <section class="section" id="abstract">
+  <!-- <section class="section" id="abstract">
     <div class="container" style="max-width: 80%; font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
@@ -178,7 +178,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <section class="section" id="introduction-overview" style="padding-top:1.5rem;">
     <div class="container" style="max-width: 80%; margin: 0 auto;">
@@ -279,42 +279,7 @@
     </div>
   </section>
 
-<!--   
-  <section class="section" id="benchmark-details" style="padding-top:1.5rem;">
-    <div class="container" style="max-width: 80%; margin: 0 auto;">
-        <h2 class="title is-3" style="text-align:center; margin-bottom:1.5rem;">Benchmark Setup</h2>
-        <div class="content">
-            <h4 class="title is-4">Models Evaluated</h4>
-            <p>EFFIVLM-BENCH includes three frontier LVLMs spanning diverse model sizes for comprehensive evaluation:</p>
-            <ul>
-                <li>LLaVA-OneVision(OV)-7B</li>
-                <li>Qwen2-VL-7B</li>
-                <li>InternVL2.5-38B</li>
-            </ul>
-
-            <h4 class="title is-4">Tasks and Benchmarks</h4>
-            <p>Evaluations are conducted across 17 widely-used benchmarks covering diverse tasks such as document understanding, chart interpretation, real-world QA, OCR, multi-image, and video scenarios. Key benchmarks include DocVQA, ChartQA, TextVQA, OCRBench, MMMU, MME, MMStar, MathVista, LLaVA-Wilder, MMVet, ImageDC, MP-DocVQA, and MovieChat.</p>
-
-            <h4 class="title is-4">Evaluation Metrics</h4>
-            <p>We use four key metrics to assess acceleration methods:</p>
-            <ul>
-                <li><strong>Overall Performance ($OP^{m,c}$):</strong> Measures the performance of a compressed model relative to the original.
-                    <br>$OP^{m,c}=\sqrt{\frac{1}{B}\sum_{b=1}^{B}\mathbb{E}(\frac{EM_{b}^{m,c}}{EM_{b}^{m}})^{2}}$</li>
-                <li><strong>Generalization ($\mathcal{D}G^{c}$):</strong> Evaluates the consistency of relative performance across benchmarks and models (lower is better).
-                    <br>$\mathcal{D}G^{c}=\frac{\sigma_{b}(\mathbb{E}_{m}[\frac{EM_{b,c}^{m,c}}{EM_{b,c}}])}{\mathbb{E}_{b,m}[\frac{EM_{b,c}^{m,c}}{EM_{b}^{m}}]}$</li>
-                <li><strong>Loyalty ($OL^{c}$):</strong> Measures how well a compression method preserves the original model's predictions (higher is better).
-                    <br>$OL^{c}=\mathbb{E}_{b,m}[\mathbb{I}(P_{b}^{m,c},P_{b}^{m})]$</li>
-                <li><strong>Efficiency (OE):</strong> Actual inference time speedup per fixed number of samples.
-                    <br>$OE = \frac{T_b^m}{T_b^{m,c}}$ (Note: Paper formula is $T_b^{m,c}/T_b^m$ for latency, speedup is inverse or $T_b^m/T_b^{m,c}$)
-                    The paper defines $OE = \mathbb{E}_{b,m}[\frac{T_b^m}{T_b^{m,c}}]$ where $T$ is latency. So higher $OE$ is better.
-                </li>
-            </ul>
-        </div>
-    </div>
-  </section> -->
-
-
-  <section class="section" id="results" style="padding-top:1.5rem;">
+<section class="section" id="results" style="padding-top:1.5rem;">
     <div class="container" style="max-width: 90%">
       <h2 class="title is-3" style="text-align:center; margin-bottom:2rem;">Benchmark Results and Key Findings</h2>
         <ul class="nav nav-tabs" id="resultsTab" role="tablist">
@@ -340,14 +305,14 @@
             </figure>
 
             <div class="key-observation">
-                <p><span class="observation-title">Observation 1:</span> Token compression performance is task-dependent and shows significant sensitivity to benchmark and model. Most methods are stable at higher budgets but degrade sharply at very low budgets (e.g., 1%), especially on tasks requiring fine-grained visual detail or long outputs. For token pruning at a 1% budget, methods pruning within the visual encoder (e.g., VisionZip, PruMerge+) outperform those pruning in the LLM backbone (e.g., FastV). (See Table 1 in paper)</p>
+                <p><span class="observation-title">Observation 1:</span> Token compression performance is task-dependent and shows significant sensitivity to benchmark and model. Most methods are stable at higher budgets but degrade sharply at very low budgets (e.g., 1%), especially on tasks requiring fine-grained visual detail or long outputs. For token pruning at a 1% budget, methods pruning within the visual encoder (e.g., VisionZip, PruMerge+) outperform those pruning in the LLM backbone (e.g., FastV).</p>
                 <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
                     <img src="website/img/visual_token_prune.png" alt="Visual Token Pruning Results" style="max-width: 100%; border: 1px solid #ddd;"/>
   
                 </div>
             </div>
             <div class="key-observation">
-                <p><span class="observation-title">Observation 2:</span> KV cache compression outperforms token pruning in generalization and loyalty. Methods like H2O and PyramidKV show strong overall performance. KV cache methods are generally preferred when generalization and loyalty are critical. (See Table 2 in paper)</p>
+                <p><span class="observation-title">Observation 2:</span> KV cache compression outperforms token pruning in generalization and loyalty. Methods like H2O and PyramidKV show strong overall performance. KV cache methods are generally preferred when generalization and loyalty are critical.</p>
                  <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
                     <img src="website/img/loyalty.png" alt="Token Compression Generalization and Loyalty" style="max-width: 80%; border: 1px solid #ddd;"/>
                    
@@ -359,10 +324,10 @@
                 
             </figure>
             <div class="key-observation">
-                <p><span class="observation-title">Observation 3:</span> Selecting token pruning or KV cache compression based on task statistics can achieve a better performance-efficiency trade-off. Token pruning drastically reduces Time-To-First-Token (TTFT), ideal for short-response tasks. KV cache methods may offer better performance for tasks with long outputs at low budgets. (See Figure 2 in paper)</p>
+                <p><span class="observation-title">Observation 3:</span> Selecting token pruning or KV cache compression based on task statistics can achieve a better performance-efficiency trade-off. Token pruning drastically reduces Time-To-First-Token (TTFT), ideal for short-response tasks. KV cache methods may offer better performance for tasks with long outputs at low budgets.</p>
             </div>
             <div class="key-observation">
-                <p><span class="observation-title">Observation 4:</span> Consistent performance trends of token compression methods are observed across single-image, multi-image, and video tasks. (See Table 3 in paper for multi-image/video results)</p>
+                <p><span class="observation-title">Observation 4:</span> Consistent performance trends of token compression methods are observed across single-image, multi-image, and video tasks.</p>
             </div>
           </div>
 
@@ -370,7 +335,7 @@
             <h3 class="title is-4">Parameter Compression Findings</h3>
             <p>We evaluate two mainstream approaches: pruning (e.g., EcoFLAP, Wanda, SparseGPT) and quantization (e.g., AWQ, GPTQ).</p>
             <div class="key-observation">
-                <p><span class="observation-title">Observation 5:</span> Parameter compression generally preserves performance more effectively than token compression, even at higher compression ratios (e.g., 50% sparsity). Quantization methods like AWQ tend to preserve higher performance compared to pruning. Importantly, token and parameter compression are orthogonal and can be effectively combined. (See Table 4 in paper)</p>
+                <p><span class="observation-title">Observation 5:</span> Parameter compression generally preserves performance more effectively than token compression, even at higher compression ratios (e.g., 50% sparsity). Quantization methods like AWQ tend to preserve higher performance compared to pruning. Importantly, token and parameter compression are orthogonal and can be effectively combined.</p>
                  <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
                     <img src="website/img/parem_compress.png" alt="Parameter Compression Results" style="max-width: 100%; border: 1px solid #ddd;"/>
                 </div>
@@ -386,21 +351,21 @@
         
         <div class="content">
             <h4 class="title is-5 method-category">Revisiting Layer-Adaptive Sparsity in KV Cache Compression</h4>
-            <p>While layer-adaptive sparsity can benefit LLMs, our findings suggest it's not universally advantageous for LVLMs, especially at low sparsity budgets. For instance, VL-Cache's aggressive front-loading of budget to early layers can starve subsequent layers. A hybrid allocation (e.g., 80% uniform + 20% adaptive) showed improved performance. (See Figure 3, Table 5 in paper)</p>
+            <p>While layer-adaptive sparsity can benefit LLMs, our findings suggest it's not universally advantageous for LVLMs, especially at low sparsity budgets. For instance, VL-Cache's aggressive front-loading of budget to early layers can starve subsequent layers. A hybrid allocation (e.g., 80% uniform + 20% adaptive) showed improved performance.</p>
             <figure class="has-text-centered" style="margin-bottom: 1.5rem;">
                 <img src="website/img/vl_cache_llava.png" alt="VL-Cache Budget Allocation" style="max-width: 70%; height: auto; border: 1px solid #ddd;"/>
             </figure>
 
             <h4 class="title is-5 method-category">Revisiting Head-Adaptive Mechanism in KV Cache Compression</h4>
-            <p>Allowing different heads within the same layer to select cache tokens adaptively (head-adaptive) generally improves performance under aggressive budget constraints (e.g., 1% budget) by retaining more critical information. (See Table 6 in paper)</p>
+            <p>Allowing different heads within the same layer to select cache tokens adaptively (head-adaptive) generally improves performance under aggressive budget constraints (e.g., 1% budget) by retaining more critical information.</p>
             <figure class="has-text-centered" style="margin-bottom: 1.5rem;">
               <img src="website/img/head_adaptive.png" alt="Head Adaptive Analysis" style="max-width: 70%; height: auto; border: 1px solid #ddd;"/>
           </figure>
             <h4 class="title is-5 method-category">Attention Sink Tokens in LVLMs</h4>
-            <p>Attention sink tokens (tokens that receive high attention regardless of semantic relevance) are present in both text and image modalities in LVLMs. Removing these can degrade performance. Methods like StreamingLLM that preserve text sink tokens show improvements. Visual sink tokens also significantly impact performance; text-guided visual token pruning (e.g., FastV) may fail to capture these crucial visual sink tokens, unlike image-guided pruning (e.g., VisionZip). (See Table 7, Table 15 in paper)</p>
+            <p>Attention sink tokens (tokens that receive high attention regardless of semantic relevance) are present in both text and image modalities in LVLMs. Removing these can degrade performance. Methods like StreamingLLM that preserve text sink tokens show improvements. Visual sink tokens also significantly impact performance; text-guided visual token pruning (e.g., FastV) may fail to capture these crucial visual sink tokens, unlike image-guided pruning (e.g., VisionZip).</p>
 
             <h4 class="title is-5 method-category">Merging Strategies for Evicted Tokens</h4>
-            <p>Merging evicted tokens can help recover information. However, cross-modal merging (e.g., visual tokens into text tokens) can disrupt critical textual features, especially at very low budgets, leading to performance degradation as seen with LOOK-M. Modality-specific merging (merging evicted tokens only within the same modality) shows improved performance. (See Table 8 in paper)</p>
+            <p>Merging evicted tokens can help recover information. However, cross-modal merging (e.g., visual tokens into text tokens) can disrupt critical textual features, especially at very low budgets, leading to performance degradation as seen with LOOK-M. Modality-specific merging (merging evicted tokens only within the same modality) shows improved performance.</p>
         </div>
       </div>
   </section>
