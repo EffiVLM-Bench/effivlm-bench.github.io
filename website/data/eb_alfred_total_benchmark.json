@@ -1,0 +1,194 @@
+[
+  {	
+    "model": "GPT-4o",
+    "eb_alfred_avg":56.3,
+    "eb_alfred_base":64,
+    "eb_alfred_common":54,
+    "eb_alfred_complex":68,
+    "eb_alfred_visual":46,
+    "eb_alfred_spatial":52,
+    "eb_alfred_long":54
+  },
+  {	
+    "model": "GPT-4o mini",
+    "eb_alfred_avg":24.0,
+    "eb_alfred_base":34,
+    "eb_alfred_common":28,
+    "eb_alfred_complex":36,
+    "eb_alfred_visual":24,
+    "eb_alfred_spatial":22,
+    "eb_alfred_long":0
+  },
+  {	
+    "model": "Claude-3.5-Sonnet",
+    "eb_alfred_avg":64.0,
+    "eb_alfred_base":72,
+    "eb_alfred_common":66,
+    "eb_alfred_complex":76,
+    "eb_alfred_visual":60,
+    "eb_alfred_spatial":58,
+    "eb_alfred_long":52
+  },
+  {	
+    "model": "Gemini-1.5-Pro",
+    "eb_alfred_avg":62.3,
+    "eb_alfred_base":70,
+    "eb_alfred_common":64,
+    "eb_alfred_complex":72,
+    "eb_alfred_visual":58,
+    "eb_alfred_spatial":52,
+    "eb_alfred_long":58
+  },
+  {	
+    "model": "Gemini-2.0-flash",
+    "eb_alfred_avg":52.3,
+    "eb_alfred_base":62,
+    "eb_alfred_common":48,
+    "eb_alfred_complex":54,
+    "eb_alfred_visual":46,
+    "eb_alfred_spatial":46,
+    "eb_alfred_long":58
+  },
+  {	
+    "model": "Gemini-1.5-flash",
+    "eb_alfred_avg":39.3,
+    "eb_alfred_base":44,
+    "eb_alfred_common":40,
+    "eb_alfred_complex":56,
+    "eb_alfred_visual":42,
+    "eb_alfred_spatial":26,
+    "eb_alfred_long":28
+  },
+  {	
+    "model": "Qwen-VL-Max",
+    "eb_alfred_avg":41.3,
+    "eb_alfred_base":44,
+    "eb_alfred_common":48,
+    "eb_alfred_complex":44,
+    "eb_alfred_visual":42,
+    "eb_alfred_spatial":38,
+    "eb_alfred_long":32
+  },
+  {	
+    "model": "Llama-3.2-90B-Vision-Ins",
+    "eb_alfred_avg":32.0,
+    "eb_alfred_base":38,
+    "eb_alfred_common":34,
+    "eb_alfred_complex":44,
+    "eb_alfred_visual":28,
+    "eb_alfred_spatial":32,
+    "eb_alfred_long":16
+  },
+  {
+    "model": "Llama-3.2-11B-Vision-Ins",
+    "eb_alfred_avg": 13.7,
+    "eb_alfred_base": 24,
+    "eb_alfred_common": 8,
+    "eb_alfred_complex": 16,
+    "eb_alfred_visual": 22,
+    "eb_alfred_spatial": 6,
+    "eb_alfred_long": 6
+  },
+  {
+    "model": "InternVL2_5-78B",
+    "eb_alfred_avg": 37.7,
+    "eb_alfred_base": 38,
+    "eb_alfred_common": 34,
+    "eb_alfred_complex": 42,
+    "eb_alfred_visual": 34,
+    "eb_alfred_spatial": 36,
+    "eb_alfred_long": 42
+  },
+  {
+    "model": "InternVL2_5-38B",
+    "eb_alfred_avg": 23.3,
+    "eb_alfred_base": 36,
+    "eb_alfred_common": 30,
+    "eb_alfred_complex": 36,
+    "eb_alfred_visual": 22,
+    "eb_alfred_spatial": 14,
+    "eb_alfred_long": 26
+  },
+  {
+    "model": "InternVL2_5-8B",
+    "eb_alfred_avg": 2.0,
+    "eb_alfred_base": 4,
+    "eb_alfred_common": 6,
+    "eb_alfred_complex": 2,
+    "eb_alfred_visual": 0,
+    "eb_alfred_spatial": 0,
+    "eb_alfred_long": 0
+  },
+  {
+    "model": "InternVL2_5-78B-MPO",
+    "eb_alfred_avg": 40.0,
+    "eb_alfred_base": 48,
+    "eb_alfred_common": 36,
+    "eb_alfred_complex": 42,
+    "eb_alfred_visual": 40,
+    "eb_alfred_spatial": 40,
+    "eb_alfred_long": 34
+  },
+  {
+    "model": "InternVL2_5-38B-MPO",
+    "eb_alfred_avg": 25.7,
+    "eb_alfred_base": 30,
+    "eb_alfred_common": 20,
+    "eb_alfred_complex": 20,
+    "eb_alfred_visual": 28,
+    "eb_alfred_spatial": 32,
+    "eb_alfred_long": 24
+  },
+  {
+    "model": "InternVL2_5-8B-MPO",
+    "eb_alfred_avg": 7.7,
+    "eb_alfred_base": 12,
+    "eb_alfred_common": 6,
+    "eb_alfred_complex": 14,
+    "eb_alfred_visual": 6,
+    "eb_alfred_spatial": 6,
+    "eb_alfred_long": 2
+  },
+  {
+    "model": "Qwen2-VL-72B-Ins",
+    "eb_alfred_avg": 33.7,
+    "eb_alfred_base": 40,
+    "eb_alfred_common": 30,
+    "eb_alfred_complex": 40,
+    "eb_alfred_visual": 30,
+    "eb_alfred_spatial": 32,
+    "eb_alfred_long": 30
+  },
+  {
+    "model": "Qwen2-VL-7B-Ins",
+    "eb_alfred_avg": 1.7,
+    "eb_alfred_base": 6,
+    "eb_alfred_common": 0,
+    "eb_alfred_complex": 2,
+    "eb_alfred_visual": 0,
+    "eb_alfred_spatial": 0,
+    "eb_alfred_long": 2
+  },
+  {
+    "model": "Qwen2.5-VL-72B-Ins",
+    "eb_alfred_avg": 39.7,
+    "eb_alfred_base": 50,
+    "eb_alfred_common": 42,
+    "eb_alfred_complex": 42,
+    "eb_alfred_visual": 36,
+    "eb_alfred_spatial": 34,
+    "eb_alfred_long": 34
+  },
+  {
+    "model": "Qwen2.5-VL-7B-Ins",
+    "eb_alfred_avg": 4.7,
+    "eb_alfred_base": 10,
+    "eb_alfred_common": 8,
+    "eb_alfred_complex": 6,
+    "eb_alfred_visual": 2,
+    "eb_alfred_spatial": 0,
+    "eb_alfred_long": 2
+  }
+]
+
+

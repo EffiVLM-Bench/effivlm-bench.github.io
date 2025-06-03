@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EffiVLM-Bench: A Comprehensive Benchmark for Evaluating Training-Free Acceleration in Large Vision-Language Models</title>
+
+  <link rel="icon" href="website/img/logo.png" type="image/png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="website/css/bulma.min.css">
+    <link rel="stylesheet" href="website/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="website/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="website/css/fontawesome.all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./website/javascript/bulma-carousel.min.js"></script>
+    <script src="./website/javascript/bulma-slider.min.js"></script>
+    <script src="./website/javascript/explorer-index.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bootstrap4.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+    <script defer src="website/javascript/fontawesome.all.min.js"></script>
+    <link rel="stylesheet" href="website/css/index.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7GJ4FYMY9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C7GJ4FYMY9');
+    </script>
+
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/javascript">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+
+    <noscript>
+        <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101339888ns.gif" /></p>
+    </noscript>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var toggles = document.querySelectorAll('.toggle-section');
+        toggles.forEach(function(toggle) {
+            toggle.addEventListener('click', function() {
+            var content = document.getElementById(toggle.getAttribute('aria-controls'));
+            var toggleIcon = toggle.children[1].children[0];
+            content.classList.toggle('is-active');
+            if (content.classList.contains('is-active')) {
+                toggleIcon.style.transition = 'transform 0.3s ease';
+                toggleIcon.style.transform = 'rotate(180deg)';
+            } else {
+                toggleIcon.style.transition = 'transform 0.3s ease';
+                toggleIcon.style.transform = 'rotate(0deg)';
+            }
+            });
+        });
+        });
+      </script>
+
+    <style>
+        .collapse-content {
+          display: none;
+          margin-top: 10px;
+        }
+        .collapse-content.is-active {
+          display: block;
+        }
+        .key-observation {
+          margin-bottom: 1rem;
+        }
+        .observation-title {
+          font-weight: bold;
+        }
+        .method-category {
+          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <h1 class="title is-1 publication-title is-bold">
+              <img src="website/img/logo.png"
+                   alt="EffiVLM-Bench Logo"
+                   style="vertical-align: middle; margin-right: 20px; position: relative; top: -5px;"
+                   width="70"
+                   height="70" />
+              <span class="EffiVLM-Bench" style="vertical-align: middle;">EffiVLM-Bench</span>
+            </h1>
+
+            <h2 class="subtitle is-3 publication-subtitle" style="margin-top:-0.5em;">
+              A Comprehensive Benchmark for Evaluating Training-Free Acceleration in Large Vision-Language Models
+            </h2>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Zekun Wang<sup>1</sup>,</span>
+              <span class="author-block">Minghua Ma<sup>1*</sup>,</span>
+              <span class="author-block">Zexin Wang<sup>1*</sup>,</span>
+              <span class="author-block">Rongchuan Mu<sup>1*</sup>,</span><br>
+              <span class="author-block">Liping Shan<sup>2</sup>,</span>
+              <span class="author-block">Ming Liu<sup>1,3</sup>,</span>
+              <span class="author-block">Bing Qin<sup>1,3</sup></span>
+            </div>
+            <div class="is-size-5 publication-authors" style="margin-top:1em;">
+              <span class="author-block"><sup>1</sup>Harbin Institute of Technology,</span>
+              <span class="author-block"><sup>2</sup>Du Xiaoman Science Technology Co., Ltd,</span>
+              <span class="author-block"><sup>3</sup>Pengcheng Laboratory</span>
+            </div>
+            <div class="is-size-6 publication-authors" style="margin-top:0.5em;">
+              <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            </div>
+
+            <div class="column has-text-centered" style="margin-top:1.5em;">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2506.00479" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i> </span>
+                  <span>Paper</span>
+                </a>&nbsp;&nbsp;
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/EffiVLM-Bench/EffiVLM-Bench" class="external-link button is-normal is-rounded is-dark" role="button" target="_blank">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a> &nbsp;&nbsp;
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="abstract">
+    <div class="container" style="max-width: 80%; font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Large Vision-Language Models (LVLMs) have achieved remarkable success, yet their significant computational demands hinder practical deployment.
+              While efforts to improve LVLM efficiency are growing, existing methods lack comprehensive evaluation across diverse backbones, benchmarks, and metrics.
+              In this work, we systematically evaluate mainstream acceleration techniques for LVLMs, categorized into token and parameter compression.
+              We introduce EFFIVLM-BENCH, a unified framework for assessing not only absolute performance but also generalization and loyalty, while exploring Pareto-optimal trade-offs.
+              Our extensive experiments and in-depth analyses offer insights into optimal strategies for accelerating LVLMs.
+              We open-source code and recipes for EFFIVLM-BENCH to foster future research.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="introduction-overview" style="padding-top:1.5rem;">
+    <div class="container" style="max-width: 80%; margin: 0 auto;">
+      <h2 class="title is-3" style="text-align:center; margin-bottom:1rem;">Introduction</h2>
+      <div class="content has-text-justified" style="font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
+        <p>
+          Large vision-language models (LVLMs) have rapidly advanced, transforming multimodal AI and showing great potential for real-world applications.
+          However, their remarkable capabilities are often overshadowed by massive computational and memory costs, severely hindering practical deployment.
+          While some studies propose more efficient architectures or incorporate distillation, these typically demand full retraining, incurring substantial overhead.
+          As a result, there has been a growing focus on training-free acceleration methods for LVLMs, which are more economical and can be broadly classified into token compression (eliminating redundant tokens) and parameter compression (reducing parameter size via pruning or quantization).
+        </p>
+        <p>
+          Current evaluations of these methods often use outdated models, limited benchmarks, or narrow metrics, failing to capture generalization or loyalty.
+          There's also a lack of systematic exploration into performance-efficiency trade-offs.
+          To address these limitations, we propose EFFIVLM-BENCH, a unified evaluation framework for systematically assessing training-free acceleration methods of LVLMs.
+          EFFIVLM-BENCH spans a wide range of representative model architectures and tasks, employing comprehensive metrics for performance, generalization, loyalty, and efficiency.
+          With EFFIVLM-BENCH, we conduct a thorough comparison of mainstream token and parameter compression methods, explore Pareto-optimal trade-offs, and offer a nuanced understanding of their strengths and limitations to guide future research and practical deployment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="key-features" style="padding-top:1.5rem;">
+    <div class="container" style="max-width: 90%; margin: 0 auto;"> 
+        <h2 class="title is-3" style="text-align:center; margin-bottom:1.5rem;">Key Features of EFFIVLM-BENCH</h2>
+        <div class="columns is-desktop is-multiline"> 
+            <div class="column is-one-third-desktop">
+                <div class="box" style="height: 100%;"> 
+                    <h4 class="title is-5 has-text-centered">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-cubes"></i>
+                            </span>
+                            <span>1. Comprehensive SOTA Models & Methods</span>
+                        </span>
+                    </h4>
+                    <p>EFFIVLM-BENCH provides a robust platform by incorporating:</p>
+                    <ul>
+                        <li><strong>Leading LVLMs:</strong> Evaluation across frontier models like LLaVA-OneVision(OV)-7B, Qwen2-VL-7B, and InternVL2.5-38B.</li>
+                        <li><strong>Mainstream Acceleration Techniques:</strong> Systematic evaluation of:
+                            <ul>
+                                <li><em>Token Compression:</em> Visual Token Pruning (e.g., FastV, VisionZip, PruMerge+) and KV Cache Compression (e.g., StreamingLLM, H2O, VL-Cache).</li>
+                                <li><em>Parameter Compression:</em> Weight Pruning (e.g., Wanda, SparseGPT) and Quantization (e.g., AWQ, GPTQ).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Diverse Benchmarks:</strong> Evaluation spans 17 widely-used benchmarks.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="column is-one-third-desktop">
+                <div class="box" style="height: 100%;">
+                    <h4 class="title is-5 has-text-centered">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-ruler-combined"></i>
+                            </span>
+                            <span>2. Holistic Evaluation Metrics</span>
+                        </span>
+                    </h4>
+                    <p>A unified framework employing comprehensive metrics to assess methods on:</p>
+                    <ul>
+                        <li><strong>Overall Performance (OP):</strong> Measures compressed model's performance relative to the original.</li>
+                        <li><strong>Generalization (OG):</strong> Evaluates consistency across models and benchmarks (lower is better).</li>
+                        <li><strong>Loyalty (OL):</strong> Assesses preservation of the original model's predictions.</li>
+                        <li><strong>Efficiency (OE):</strong> Reflects real-world latency via actual inference time speedup.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="column is-one-third-desktop"> 
+                <div class="box" style="height: 100%;"> 
+                    <h4 class="title is-5 has-text-centered">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </span>
+                            <span>3. In-depth Analyses & Insights</span>
+                        </span>
+                    </h4>
+                    <p>EFFIVLM-BENCH offers actionable insights by exploring:</p>
+                    <ul>
+                        <li><strong>Pareto-Optimal Trade-offs:</strong> Balancing model performance and inference efficiency.</li>
+                        <li><strong>Compression Mechanisms Analysis:</strong>
+                            <ul>
+                                <li>Layer-adaptive vs. static budget allocation in KV cache.</li>
+                                <li>Impact of head-adaptive token selection in KV cache.</li>
+                                <li>Significance of "attention sink" tokens.</li>
+                                <li>Optimal strategies for merging evicted tokens.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Open Source:</strong> Provides code and recipes to foster future research.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  </section>
+
+<!--   
+  <section class="section" id="benchmark-details" style="padding-top:1.5rem;">
+    <div class="container" style="max-width: 80%; margin: 0 auto;">
+        <h2 class="title is-3" style="text-align:center; margin-bottom:1.5rem;">Benchmark Setup</h2>
+        <div class="content">
+            <h4 class="title is-4">Models Evaluated</h4>
+            <p>EFFIVLM-BENCH includes three frontier LVLMs spanning diverse model sizes for comprehensive evaluation:</p>
+            <ul>
+                <li>LLaVA-OneVision(OV)-7B</li>
+                <li>Qwen2-VL-7B</li>
+                <li>InternVL2.5-38B</li>
+            </ul>
+
+            <h4 class="title is-4">Tasks and Benchmarks</h4>
+            <p>Evaluations are conducted across 17 widely-used benchmarks covering diverse tasks such as document understanding, chart interpretation, real-world QA, OCR, multi-image, and video scenarios. Key benchmarks include DocVQA, ChartQA, TextVQA, OCRBench, MMMU, MME, MMStar, MathVista, LLaVA-Wilder, MMVet, ImageDC, MP-DocVQA, and MovieChat.</p>
+
+            <h4 class="title is-4">Evaluation Metrics</h4>
+            <p>We use four key metrics to assess acceleration methods:</p>
+            <ul>
+                <li><strong>Overall Performance ($OP^{m,c}$):</strong> Measures the performance of a compressed model relative to the original.
+                    <br>$OP^{m,c}=\sqrt{\frac{1}{B}\sum_{b=1}^{B}\mathbb{E}(\frac{EM_{b}^{m,c}}{EM_{b}^{m}})^{2}}$</li>
+                <li><strong>Generalization ($\mathcal{D}G^{c}$):</strong> Evaluates the consistency of relative performance across benchmarks and models (lower is better).
+                    <br>$\mathcal{D}G^{c}=\frac{\sigma_{b}(\mathbb{E}_{m}[\frac{EM_{b,c}^{m,c}}{EM_{b,c}}])}{\mathbb{E}_{b,m}[\frac{EM_{b,c}^{m,c}}{EM_{b}^{m}}]}$</li>
+                <li><strong>Loyalty ($OL^{c}$):</strong> Measures how well a compression method preserves the original model's predictions (higher is better).
+                    <br>$OL^{c}=\mathbb{E}_{b,m}[\mathbb{I}(P_{b}^{m,c},P_{b}^{m})]$</li>
+                <li><strong>Efficiency (OE):</strong> Actual inference time speedup per fixed number of samples.
+                    <br>$OE = \frac{T_b^m}{T_b^{m,c}}$ (Note: Paper formula is $T_b^{m,c}/T_b^m$ for latency, speedup is inverse or $T_b^m/T_b^{m,c}$)
+                    The paper defines $OE = \mathbb{E}_{b,m}[\frac{T_b^m}{T_b^{m,c}}]$ where $T$ is latency. So higher $OE$ is better.
+                </li>
+            </ul>
+        </div>
+    </div>
+  </section> -->
+
+
+  <section class="section" id="results" style="padding-top:1.5rem;">
+    <div class="container" style="max-width: 90%">
+      <h2 class="title is-3" style="text-align:center; margin-bottom:2rem;">Benchmark Results and Key Findings</h2>
+        <ul class="nav nav-tabs" id="resultsTab" role="tablist">
+          <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="token-compression-tab" data-bs-toggle="tab"
+                  data-bs-target="#token-compression-content" type="button" role="tab"
+                  aria-controls="token-compression-content" aria-selected="true">Token Compression</button>
+          </li>
+          <li class="nav-item" role="presentation">
+              <button class="nav-link" id="parameter-compression-tab" data-bs-toggle="tab"
+                  data-bs-target="#parameter-compression-content" type="button" role="tab"
+                  aria-controls="parameter-compression-content" aria-selected="false">Parameter Compression</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="resultsTabContent" style="margin-top: 1.5rem;">
+          <div class="tab-pane fade show active" id="token-compression-content" role="tabpanel" aria-labelledby="token-compression-tab">
+            <h3 class="title is-4">Token Compression Findings</h3>
+            <p>We evaluate token compression effectiveness by examining two mainstream approaches: (1) token pruning (e.g., FastV, VisionZip, PruMerge+) and (2) KV cache compression (e.g., StreamingLLM, H2O, SnapKV, PyramidKV, LOOK-M, VL-Cache).</p>
+            
+            <figure class="has-text-centered" style="margin-bottom: 2rem;">
+                <img src="website/img/main_kvcache.svg" alt="Performance of KV Cache Compression Methods" style="max-width: 100%; height: auto; border: 1px solid #ddd;"/>
+                <figcaption>Performance comparison of KV cache compression methods.</figcaption>
+            </figure>
+
+            <div class="key-observation">
+                <p><span class="observation-title">Observation 1:</span> Token compression performance is task-dependent and shows significant sensitivity to benchmark and model. Most methods are stable at higher budgets but degrade sharply at very low budgets (e.g., 1%), especially on tasks requiring fine-grained visual detail or long outputs. For token pruning at a 1% budget, methods pruning within the visual encoder (e.g., VisionZip, PruMerge+) outperform those pruning in the LLM backbone (e.g., FastV). (See Table 1 in paper)</p>
+                <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
+                    <img src="website/img/visual_token_prune.png" alt="Visual Token Pruning Results" style="max-width: 100%; border: 1px solid #ddd;"/>
+  
+                </div>
+            </div>
+            <div class="key-observation">
+                <p><span class="observation-title">Observation 2:</span> KV cache compression outperforms token pruning in generalization and loyalty. Methods like H2O and PyramidKV show strong overall performance. KV cache methods are generally preferred when generalization and loyalty are critical. (See Table 2 in paper)</p>
+                 <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
+                    <img src="website/img/loyalty.png" alt="Token Compression Generalization and Loyalty" style="max-width: 80%; border: 1px solid #ddd;"/>
+                   
+                </div>
+            </div>
+
+            <figure class="has-text-centered" style="margin-bottom: 2rem;">
+                <img src="website/img/pareto.png" alt="Trade-off Analysis for Token Compression" style="max-width: 100%; height: auto; border: 1px solid #ddd;"/>
+                
+            </figure>
+            <div class="key-observation">
+                <p><span class="observation-title">Observation 3:</span> Selecting token pruning or KV cache compression based on task statistics can achieve a better performance-efficiency trade-off. Token pruning drastically reduces Time-To-First-Token (TTFT), ideal for short-response tasks. KV cache methods may offer better performance for tasks with long outputs at low budgets. (See Figure 2 in paper)</p>
+            </div>
+            <div class="key-observation">
+                <p><span class="observation-title">Observation 4:</span> Consistent performance trends of token compression methods are observed across single-image, multi-image, and video tasks. (See Table 3 in paper for multi-image/video results)</p>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="parameter-compression-content" role="tabpanel" aria-labelledby="parameter-compression-tab">
+            <h3 class="title is-4">Parameter Compression Findings</h3>
+            <p>We evaluate two mainstream approaches: pruning (e.g., EcoFLAP, Wanda, SparseGPT) and quantization (e.g., AWQ, GPTQ).</p>
+            <div class="key-observation">
+                <p><span class="observation-title">Observation 5:</span> Parameter compression generally preserves performance more effectively than token compression, even at higher compression ratios (e.g., 50% sparsity). Quantization methods like AWQ tend to preserve higher performance compared to pruning. Importantly, token and parameter compression are orthogonal and can be effectively combined. (See Table 4 in paper)</p>
+                 <div class="has-text-centered" style="margin-top:1em; margin-bottom:1em;">
+                    <img src="website/img/parem_compress.png" alt="Parameter Compression Results" style="max-width: 100%; border: 1px solid #ddd;"/>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="section" id="discussion" style="padding-top:3.5rem;">
+      <div class="container" style="max-width: 80%; font-size: 1.0em; margin: 0 auto; line-height: 1.55;">
+        <h2 class="title is-3" style="text-align:center; margin-bottom:2rem;">Key Insights and Discussion</h2>
+        
+        <div class="content">
+            <h4 class="title is-5 method-category">Revisiting Layer-Adaptive Sparsity in KV Cache Compression</h4>
+            <p>While layer-adaptive sparsity can benefit LLMs, our findings suggest it's not universally advantageous for LVLMs, especially at low sparsity budgets. For instance, VL-Cache's aggressive front-loading of budget to early layers can starve subsequent layers. A hybrid allocation (e.g., 80% uniform + 20% adaptive) showed improved performance. (See Figure 3, Table 5 in paper)</p>
+            <figure class="has-text-centered" style="margin-bottom: 1.5rem;">
+                <img src="website/img/vl_cache_llava.png" alt="VL-Cache Budget Allocation" style="max-width: 70%; height: auto; border: 1px solid #ddd;"/>
+            </figure>
+
+            <h4 class="title is-5 method-category">Revisiting Head-Adaptive Mechanism in KV Cache Compression</h4>
+            <p>Allowing different heads within the same layer to select cache tokens adaptively (head-adaptive) generally improves performance under aggressive budget constraints (e.g., 1% budget) by retaining more critical information. (See Table 6 in paper)</p>
+            <figure class="has-text-centered" style="margin-bottom: 1.5rem;">
+              <img src="website/img/head_adaptive.png" alt="Head Adaptive Analysis" style="max-width: 70%; height: auto; border: 1px solid #ddd;"/>
+          </figure>
+            <h4 class="title is-5 method-category">Attention Sink Tokens in LVLMs</h4>
+            <p>Attention sink tokens (tokens that receive high attention regardless of semantic relevance) are present in both text and image modalities in LVLMs. Removing these can degrade performance. Methods like StreamingLLM that preserve text sink tokens show improvements. Visual sink tokens also significantly impact performance; text-guided visual token pruning (e.g., FastV) may fail to capture these crucial visual sink tokens, unlike image-guided pruning (e.g., VisionZip). (See Table 7, Table 15 in paper)</p>
+
+            <h4 class="title is-5 method-category">Merging Strategies for Evicted Tokens</h4>
+            <p>Merging evicted tokens can help recover information. However, cross-modal merging (e.g., visual tokens into text tokens) can disrupt critical textual features, especially at very low budgets, leading to performance degradation as seen with LOOK-M. Modality-specific merging (merging evicted tokens only within the same modality) shows improved performance. (See Table 8 in paper)</p>
+        </div>
+      </div>
+  </section>
+
+  <section class="section" id="BibTeX" style="padding-top:1.5rem;">
+    <div class="container is-max-desktop content" style="max-width: 95%; margin: 0 auto;">
+      <h2 class="title is-3" style="text-align:center;">BibTeX</h2>
+      <pre style="background-color: #f5f5f5; padding: 1em; border-radius: 4px; overflow-x: auto;"><code>
+        @misc{wang2025effivlmbenchcomprehensivebenchmarkevaluating,
+          title={EffiVLM-BENCH: A Comprehensive Benchmark for Evaluating Training-Free Acceleration in Large Vision-Language Models}, 
+          author={Zekun Wang and Minghua Ma and Zexin Wang and Rongchuan Mu and Liping Shan and Ming Liu and Bing Qin},
+          year={2025},
+          eprint={2506.00479},
+          archivePrefix={arXiv},
+          primaryClass={cs.CL},
+          url={https://arxiv.org/abs/2506.00479}, 
+    }
+      </code></pre>
+    </div>
+  </section>
+
+  <section class="section" id="acknowledgements" style="padding-top:1.5rem;">
+      <div class="container is-max-desktop content" style="max-width: 80%; margin: 0 auto;">
+          <h2 class="title is-3" style="text-align:center;">Acknowledgements</h2>
+          <p class="has-text-justified">
+              Ming Liu is the corresponding author. The work is supported by the National Key Research and Development Project (2022YFF0903301), the National Science Foundation of China (U22B2059,62276083). Besides, we express our gratitude to DuXiaoman Technology for supporting the work.
+          </p>
+      </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="columns is-centered">
+        <div class="column is-9">
+          <div class="content has-text-centered">
+          <p>
+            This website template was adapted from 
+            <a href="https://nerfies.github.io/" style="text-decoration: none;">Nerfies</a>, licensed under a 
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" style="text-decoration: none;">
+              Creative Commons Attribution-ShareAlike 4.0 International License
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
